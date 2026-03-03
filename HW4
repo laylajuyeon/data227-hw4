@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import altair as alt
+
 
 s2324 = pd.read_csv('PL-season-2324.csv')
 st.header('DATA 22700 HW4')
