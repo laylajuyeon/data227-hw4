@@ -30,7 +30,6 @@ q1scatter = alt.Chart(
 ).add_params(
     brush
 ).properties(
-    width=300,
     title='Score Differences at Halftime vs at End of Game'
 )
 
@@ -54,7 +53,6 @@ q1bar = alt.Chart(s2324).mark_bar().transform_fold(
 ).transform_filter(
     brush
 ).properties(
-    width=200,
     title='Average Scores for Selected Games'
 )
 
@@ -72,7 +70,6 @@ away= s2324[['Date','AwayTeam','at_accuracy']].rename(columns={'AwayTeam':'Team'
 
 selection = alt.selection_multi(fields=['Team'],bind='legend')
 
-
 brush = alt.selection_interval(bind='scales', encodings=['x'])
 
 home_chart = alt.Chart(home).mark_line(point=True).encode(
@@ -85,7 +82,6 @@ home_chart = alt.Chart(home).mark_line(point=True).encode(
 ).add_params(
     selection,brush
 ).properties(
-    width=800
 )
 
 away_chart = alt.Chart(away).mark_line(point=True).encode(
@@ -98,7 +94,6 @@ away_chart = alt.Chart(away).mark_line(point=True).encode(
 ).add_params(
     selection,brush
 ).properties(
-    width=800
 )
 
 q2 = home_chart&away_chart
@@ -122,8 +117,6 @@ q3heat = alt.Chart(s2324).mark_rect().encode(
         alt.Tooltip('mean(total_infractions):Q',title='Average Number of Infractions Across Matches')
     ]
 ).properties(
-    width=600,
-    height=600
 ).add_params(selection)
 
 q3bar = alt.Chart(s2324).transform_filter(
