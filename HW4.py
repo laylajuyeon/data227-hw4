@@ -116,7 +116,7 @@ q3heat = alt.Chart(s2324).mark_rect().encode(
         alt.Tooltip('AwayTeam:N'),
         alt.Tooltip('mean(total_infractions):Q',title='Average Number of Infractions Across Matches')
     ]
-).properties(width=500
+).properties(
 ).add_params(selection)
 
 q3bar = alt.Chart(s2324).transform_filter(
