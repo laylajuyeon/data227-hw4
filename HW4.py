@@ -4,7 +4,7 @@ import altair as alt
 
 s2324 = pd.read_csv('PL-season-2324.csv')
 st.title('DATA 22700 HW4')
-st.header('Layla Juyeon Lee')
+st.subheader('Layla Juyeon Lee')
 st.subheader('Q1: How consistent are score margins at half time versus at the end of the game?')
 s2324['half_diff']=s2324['HTHG']-s2324['HTAG']
 s2324['full_diff']=s2324['FTHG']-s2324['FTAG']
@@ -60,7 +60,7 @@ q1bar = alt.Chart(s2324).mark_bar().transform_fold(
 
 q1 = (q1scatter+q1line)|q1bar
 
-st.altair_chart(q1)
+st.altair_chart(q1,use_container_width=True)
 
 st.subheader('Q2: How consistent are teams’ accuracies at home vs away games?')
 s2324['ht_accuracy']=s2324['HST']/s2324['HS']
@@ -103,7 +103,7 @@ away_chart = alt.Chart(away).mark_line(point=True).encode(
 
 q2 = home_chart&away_chart
 
-st.altair_chart(q2)
+st.altair_chart(q2,use_container_width=True)
 
 st.subheader('Q3: How do infractions vary by team?')
 s2324['total_infractions'] = s2324['HF']+s2324['HY']+s2324['HR']+s2324['AF']+s2324['AY']+s2324['AR']
@@ -153,4 +153,4 @@ q3bar = alt.Chart(s2324).transform_filter(
 )
 q3 = q3heat | q3bar
 
-st.altair_chart(q3)
+st.altair_chart(q3,use_container_width=True)
