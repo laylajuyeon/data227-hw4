@@ -6,7 +6,8 @@ s2324 = pd.read_csv('PL-season-2324.csv')
 st.title('DATA 22700 HW4')
 st.subheader('Layla Juyeon Lee')
 
-st.write('This article presents a series of interactive visualizations of Premier League statistics for the 2023-2024 season.')
+st.write('This article presents a series of interactive visualizations of Premier League statistics for the 2023-2024 season aimed to \n'
+'answer questions on a number of metrics concerning consistency.')
 
 st.subheader('Q1: How consistent are score margins at half time versus at the end of the game?')
 s2324['half_diff']=s2324['HTHG']-s2324['HTAG']
@@ -61,6 +62,11 @@ q1bar = alt.Chart(s2324).mark_bar().transform_fold(
 
 q1 = (q1scatter+q1line)|q1bar
 
+st.write('The relationship between the score difference at half-time and at the end of the game is positive and linear. \n ' \
+'This aligns with what may intuitively be expected, as scoring in football, unlike other sports like basketball, tends to be rarer.\n' \
+'Moreover, most games have small changes in the score margins between halftime and the end of the game, as evident in the stronger\n' \
+'saturation closer to the red line.')
+
 st.altair_chart(q1,use_container_width=True)
 
 st.subheader('Q2: How consistent are teams’ accuracies at home vs away games?')
@@ -77,10 +83,10 @@ brush = alt.selection_interval(bind='scales', encodings=['x'])
 
 home_chart = alt.Chart(home).mark_line(point=True).encode(
     x=alt.X('Date:T'),
-    y=alt.Y('Accuracy:Q',title='Proportion of Total Shots Made on Target'),
+    y=alt.Y('Accuracy:Q',title='Proportion of Total Shots Made on Target at Home'),
     color=alt.Color('Team:N'),
     opacity=alt.condition(selection,alt.value(1),alt.value(0.1)),
-    tooltip=[alt.Tooltip('Accuracy:Q',title='Proportion of Shots Made on Target by Home Team'),
+    tooltip=[alt.Tooltip('Accuracy:Q',title='Proportion of Shots Made on Target by Team'),
              alt.Tooltip('Team:N',title='Team')]
 ).add_params(
     selection,brush
@@ -89,21 +95,21 @@ home_chart = alt.Chart(home).mark_line(point=True).encode(
 
 away_chart = alt.Chart(away).mark_line(point=True).encode(
     x=alt.X('Date:T'),
-    y=alt.Y('Accuracy:Q',title='Proportion of Total Shots Made on Target'),
+    y=alt.Y('Accuracy:Q',title='Proportion of Total Shots Made on Target when Away'),
     color=alt.Color('Team:N'),
     opacity=alt.condition(selection,alt.value(1),alt.value(0.1)),
-    tooltip=[alt.Tooltip('Accuracy:Q',title='Proportion of Shots Made on Target by Home Team'),
+    tooltip=[alt.Tooltip('Accuracy:Q',title='Proportion of Shots Made on Target by Team'),
              alt.Tooltip('Team:N',title='Team')]
 ).add_params(
     selection,brush
 ).properties(
 )
-st.write('The relationship between the score difference at half-time and at the end of the game is positive and linear. \n ' \
-'This aligns with what may intuitively be expected, as scoring in football, unlike other sports like basketball, tends to be rarer.\n' \
-'Moreover, most games have small changes in the score margins between halftime and the end of the game, as evident in the stronger\n' \
-'saturation closer to the red line.')
 
 q2 = home_chart&away_chart
+
+st.write('The consistency of accuracy across teams when playing at home vs when playing away is highly dependent on the team- \n' \
+'while most teams have generally accuracies that generally range from 0.2-0.5, teams such as West Ham experience greater voltaility\n' \
+'when playing away, while other teams such as Sheffield experience greater volatility when playing at home.')
 
 st.altair_chart(q2,use_container_width=True)
 
@@ -154,3 +160,7 @@ q3bar = alt.Chart(s2324).transform_filter(
 q3 = q3heat | q3bar
 
 st.altair_chart(q3)
+
+st.write('There is no clear correlation between the teams that play each other and the number of infractions obtained in each match, \n' \
+'as evident in the lack of symmetry across the diagonal line in the heat map. This indicates that the number of infractions is not\n' \
+'dependent on the teams themselves, i.e. there are no teams that tend to be more or less aggressive when playing a particular team.')
