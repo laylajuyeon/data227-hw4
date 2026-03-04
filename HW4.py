@@ -114,6 +114,10 @@ st.write('The consistency of accuracy across teams when playing at home vs when 
 st.altair_chart(q2,use_container_width=True)
 
 st.subheader('Q3: How do infractions vary by team?')
+
+st.write('There is no clear correlation between the teams that play each other and the number of infractions obtained in each match, \n' \
+'as evident in the lack of symmetry across the diagonal line in the heat map. This indicates that the number of infractions is not\n' \
+'dependent on the teams themselves, i.e. there are no teams that tend to be more or less aggressive when playing a particular team.')
 s2324['total_infractions'] = s2324['HF']+s2324['HY']+s2324['HR']+s2324['AF']+s2324['AY']+s2324['AR']
 
 selection = alt.selection_point(fields=['HomeTeam', 'AwayTeam'],clear=True)
@@ -160,7 +164,3 @@ q3bar = alt.Chart(s2324).transform_filter(
 q3 = q3heat | q3bar
 
 st.altair_chart(q3)
-
-st.write('There is no clear correlation between the teams that play each other and the number of infractions obtained in each match, \n' \
-'as evident in the lack of symmetry across the diagonal line in the heat map. This indicates that the number of infractions is not\n' \
-'dependent on the teams themselves, i.e. there are no teams that tend to be more or less aggressive when playing a particular team.')
