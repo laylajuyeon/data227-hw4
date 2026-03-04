@@ -5,6 +5,9 @@ import altair as alt
 s2324 = pd.read_csv('PL-season-2324.csv')
 st.title('DATA 22700 HW4')
 st.subheader('Layla Juyeon Lee')
+
+st.write('This article presents a series of interactive visualizations of Premier League statistics for the 2023-2024 season.')
+
 st.subheader('Q1: How consistent are score margins at half time versus at the end of the game?')
 s2324['half_diff']=s2324['HTHG']-s2324['HTAG']
 s2324['full_diff']=s2324['FTHG']-s2324['FTAG']
@@ -95,6 +98,10 @@ away_chart = alt.Chart(away).mark_line(point=True).encode(
     selection,brush
 ).properties(
 )
+st.write('The relationship between the score difference at half-time and at the end of the game is positive and linear. \n ' \
+'This aligns with what may intuitively be expected, as scoring in football, unlike other sports like basketball, tends to be rarer.\n' \
+'Moreover, most games have small changes in the score margins between halftime and the end of the game, as evident in the stronger\n' \
+'saturation closer to the red line.')
 
 q2 = home_chart&away_chart
 
